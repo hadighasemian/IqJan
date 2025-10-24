@@ -41,6 +41,8 @@ class MessageProcessorService
             // Parse webhook data
             $parsedData = $this->messenger->parseWebhookPayload($webhookData);
             
+            Log::info('Parsed data in MessageProcessorService', ['parsed_data' => $parsedData]);
+            
             if ($parsedData['type'] !== 'message') {
                 return ['success' => false, 'message' => 'Not a message type'];
             }

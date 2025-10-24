@@ -151,7 +151,7 @@ class BaleAdapter implements MessengerInterface
             $chat = $message['chat'] ?? [];
             $from = $message['from'] ?? [];
 
-            return [
+            $parsedData = [
                 'type' => 'message',
                 'message_id' => $message['message_id'] ?? null,
                 'chat_id' => $chat['id'] ?? null,
@@ -167,6 +167,11 @@ class BaleAdapter implements MessengerInterface
                 'reply_to_message' => $message['reply_to_message'] ?? null,
                 'raw_payload' => $payload
             ];
+
+            // Log the parsed data for debugging
+            Log::info('Parsed webhook data', ['parsed_data' => $parsedData]);
+
+            return $parsedData;
         } catch (\Exception $e) {
             Log::error('Bale parseWebhookPayload error', [
                 'error' => $e->getMessage(),

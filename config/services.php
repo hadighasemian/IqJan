@@ -56,7 +56,7 @@ return [
     */
 
     'openrouter' => [
-        'api_key' => env('OPENROUTER_API_KEY', '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'),
+        'api_key' => env('OPENROUTER_API_KEY', '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'),
         'default_model' => env('OPENROUTER_DEFAULT_MODEL', 'openai/gpt-oss-20b:free'),
         'base_url' => env('OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1'),
     ],

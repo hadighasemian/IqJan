@@ -5,34 +5,33 @@ namespace App\Console\Commands;
 use App\Models\AiApiKey;
 use Illuminate\Console\Command;
 
-class FixApiKey extends Command
+class UpdateApiKey extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'ai:fix-key {--key=}';
+    protected $signature = 'ai:update-key {api_key}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Fix the OpenRouter API key';
+    protected $description = 'Update the OpenRouter API key in database';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $this->info('🔑 Fixing OpenRouter API Key...');
+        $newApiKey = $this->argument('api_key');
+        
+        $this->info('🔑 Updating OpenRouter API Key in Database...');
         $this->newLine();
 
         try {
-            // Get the API key from command line or use default
-            $newApiKey = $this->option('key') ?: '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';
-
             // Find the OpenRouter API key
             $apiKey = AiApiKey::whereHas('aiService', function ($query) {
                 $query->where('name', 'openrouter');
@@ -50,7 +49,7 @@ class FixApiKey extends Command
             $apiKey->api_key = $newApiKey;
             $apiKey->save();
 
-            $this->info('✅ API key updated successfully!');
+            $this->info('✅ API key updated successfully in database!');
             $this->newLine();
 
             // Test the new API key
@@ -71,18 +70,18 @@ class FixApiKey extends Command
                     $this->info("   Usage: " . ($keyInfo['data']['usage'] ?? 'Unknown'));
                 }
             } else {
-                $this->error('❌ API key is still invalid');
+                $this->error('❌ API key is invalid');
                 $this->error("   Response: " . $response->body());
                 return 1;
             }
 
         } catch (\Exception $e) {
-            $this->error('❌ Fix failed: ' . $e->getMessage());
+            $this->error('❌ Update failed: ' . $e->getMessage());
             return 1;
         }
 
         $this->newLine();
-        $this->info('🎉 API key fix completed!');
+        $this->info('🎉 API key update completed!');
 
         return 0;
     }
