@@ -55,12 +55,24 @@ class OpenRouterAdapter implements AiServiceInterface
                 ->post("{$this->baseUrl}/chat/completions", $payload);
 
             if (!$response->successful()) {
+                $errorBody = $response->body();
+                $errorData = json_decode($errorBody, true);
+                
                 Log::error('OpenRouter API call failed', [
                     'status' => $response->status(),
-                    'body' => $response->body(),
-                    'payload' => $payload
+                    'body' => $errorBody,
+                    'payload' => $payload,
+                    'headers' => $response->headers()
                 ]);
-                throw new \Exception('Failed to get response from OpenRouter API');
+                
+                $errorMessage = 'Failed to get response from OpenRouter API';
+                if (isset($errorData['error']['message'])) {
+                    $errorMessage .= ': ' . $errorData['error']['message'];
+                } elseif (isset($errorData['error'])) {
+                    $errorMessage .= ': ' . $errorData['error'];
+                }
+                
+                throw new \Exception($errorMessage);
             }
 
             $responseData = $response->json();
