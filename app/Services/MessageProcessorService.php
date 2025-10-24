@@ -74,7 +74,12 @@ class MessageProcessorService
             ]);
 
             // Edit waiting message with AI response
-            $this->editWaitingMessage($parsedData['chat_id'], $waitingMessage['message_id'], $aiResponse['response']);
+            $waitingMessageId = $waitingMessage['result']['message_id'] ?? $waitingMessage['message_id'] ?? null;
+            if ($waitingMessageId) {
+                $this->editWaitingMessage($parsedData['chat_id'], $waitingMessageId, $aiResponse['response']);
+            } else {
+                Log::error('Could not get waiting message ID', ['waiting_message_response' => $waitingMessage]);
+            }
 
             DB::commit();
 
