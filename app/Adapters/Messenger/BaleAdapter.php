@@ -137,6 +137,7 @@ class BaleAdapter implements MessengerInterface
     public function parseWebhookPayload(array $payload): array
     {
         try {
+            // Handle both webhook structures
             $update = $payload['update'] ?? $payload;
             
             if (!isset($update['message'])) {
