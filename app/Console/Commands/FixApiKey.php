@@ -31,7 +31,7 @@ class FixApiKey extends Command
 
         try {
             // Get the API key from command line or use default
-            $newApiKey = $this->option('key') ?: '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';
+            $newApiKey = $this->option('key') ?: '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';
 
             // Find the OpenRouter API key
             $apiKey = AiApiKey::whereHas('aiService', function ($query) {
