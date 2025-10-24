@@ -30,7 +30,7 @@ The bot is configured with:
 ### 3. Set Webhook URL
 ```bash
 # Set webhook URL for your domain
-php artisan webhook:setup https://iq-jan.salam-raya.ir/webhook/bale
+php artisan webhook:setup https://iq-jan.salam-raya.ir/api/webhook/bale
 ```
 
 ### 4. Test the Bot
@@ -40,12 +40,12 @@ php artisan webhook:setup https://iq-jan.salam-raya.ir/webhook/bale
 ## API Endpoints
 
 ### Webhook Endpoints
-- `POST /webhook/bale` - Handle incoming messages
-- `POST /webhook/bale/set` - Set webhook URL
-- `GET /webhook/bale/info` - Get bot information
+- `POST /api/webhook/bale` - Handle incoming messages
+- `POST /api/webhook/bale/set` - Set webhook URL
+- `GET /api/webhook/bale/info` - Get bot information
 
 ### Health Check
-- `GET /health` - Service health check
+- `GET /api/health` - Service health check
 
 ## Features
 

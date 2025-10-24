@@ -35,6 +35,7 @@ class SetupWebhook extends Command
             $this->info('Webhook URL set successfully!');
             $this->info('URL: ' . $webhookUrl);
             $this->info('Response: ' . json_encode($result, JSON_PRETTY_PRINT));
+            $this->info('Note: Webhook URLs should point to /api/webhook/bale');
             
         } catch (\Exception $e) {
             $this->error('Failed to set webhook URL: ' . $e->getMessage());

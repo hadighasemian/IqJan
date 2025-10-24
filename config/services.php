@@ -39,7 +39,7 @@ return [
 
     'bale' => [
         'token' => env('BALE_BOT_TOKEN', '1893304116:ARV2LdEbYxHJtWAYVLfZPwCMNfr-1PyTQyo'),
-        'webhook_url' => env('BALE_WEBHOOK_URL', 'https://iq-jan.salam-raya.ir/webhook/bale'),
+        'webhook_url' => env('BALE_WEBHOOK_URL', 'https://iq-jan.salam-raya.ir/api/webhook/bale'),
         'webhook_secret' => env('BALE_WEBHOOK_SECRET'),
     ],
 
