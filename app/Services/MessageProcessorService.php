@@ -101,16 +101,21 @@ class MessageProcessorService
 
     private function saveMessage(array $parsedData, $user, $group): Message
     {
-        return Message::create([
+        // Ensure all required fields are present
+        $messageData = [
             'user_id' => $user->id,
             'group_id' => $group?->id,
             'provider' => $this->messenger->getName(),
-            'external_message_id' => $parsedData['message_id'],
-            'message_type' => $parsedData['message_type'],
-            'content' => $parsedData['text'],
+            'external_message_id' => $parsedData['message_id'] ?? null,
+            'message_type' => $parsedData['message_type'] ?? 'text',
+            'content' => $parsedData['text'] ?? '',
             'ai_service' => $this->aiService->getName(),
-            'raw_payload' => $parsedData['raw_payload']
-        ]);
+            'raw_payload' => $parsedData['raw_payload'] ?? []
+        ];
+
+        Log::info('Creating message with data', ['message_data' => $messageData]);
+
+        return Message::create($messageData);
     }
 
     private function sendWaitingMessage(string $chatId): array

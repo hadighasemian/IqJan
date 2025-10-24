@@ -168,6 +168,11 @@ class BaleAdapter implements MessengerInterface
                 'raw_payload' => $payload
             ];
 
+            // Ensure all required keys exist
+            if (!$parsedData['message_id']) {
+                Log::error('Missing message_id in parsed data', ['parsed_data' => $parsedData, 'original_message' => $message]);
+            }
+
             // Log the parsed data for debugging
             Log::info('Parsed webhook data', ['parsed_data' => $parsedData]);
 
