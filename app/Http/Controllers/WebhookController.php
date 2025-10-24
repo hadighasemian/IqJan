@@ -45,7 +45,9 @@ class WebhookController extends Controller
 
             // Process the webhook
             $webhookData = $request->all();
+            Log::info('Processing webhook data', ['webhook_data' => $webhookData]);
             $result = $this->messageProcessor->processMessage($webhookData);
+            Log::info('Webhook processing result', ['result' => $result]);
 
             if ($result['success']) {
                 Log::info('Webhook processed successfully', [

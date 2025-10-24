@@ -126,7 +126,7 @@ class AiServiceSeeder extends Seeder
         $openRouterApiKeys = [
             [
                 'name' => 'OpenRouter Key 1',
-                'api_key' => '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',
+                'api_key' => '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',
                 'max_usage_per_day' => null, // No daily limit
                 'priority' => 10,
             ]
